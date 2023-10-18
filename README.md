@@ -1,5 +1,5 @@
 <h1>Desafio Final Santander Dev Week 2023 Java API</h1>
-RESTful API para o BootCamp Santander da DIO, utilizando como base o Figma (Santander).
+RESTful API para o BootCamp Santander da DIO, utilizando como base para o projeto - Figma (Santander).
 
 <h3>Principais Tecnologias</h3>
 
