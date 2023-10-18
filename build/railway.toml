@@ -1,22 +1,16 @@
-# Exemplo de railway.toml
-
 [build]
-  # Configurações de compilação e execução do aplicativo
-  builder = "maven" 
-  buildCommand = "clean build"
-  runCommand = "java -jar /build/spring-api-santander-bootcamp-0.0.1-SNAPSHOT.jar"
+  builder = "none"  # Configuração para não construir o aplicativo
 
 [env]
   # Configurações de ambiente
-  JARFILE = "/build/spring-api-santander-bootcamp-0.0.1-SNAPSHOT.jar" 
+  JARFILE = "/build/spring-api-santander-bootcamp-0.0.1-SNAPSHOT.jar"  # Substitua pelo caminho real do seu JAR
 
 [web]
-  # Configurações da web
+  # Configurações da web (se aplicável)
   httpPort = 8080  # A porta HTTP que o aplicativo deve ouvir
-
-  [[services]]
-  internalPort = 8080  # Porta interna do aplicativo
 
 [entrypoints]
   # Configurações de entrada
-  app = { command = "${buildCommand}" }
+  app = { command = "java -jar $JARFILE" }
+
+  
