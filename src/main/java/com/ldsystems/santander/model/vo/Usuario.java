@@ -44,6 +44,10 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Noticia> listNoticia;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Emprestimo> listEmprestimo;
+
     public Usuario() {
     }
 
@@ -103,6 +107,14 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
+    public List<Emprestimo> getListEmprestimo() {
+        return listEmprestimo;
+    }
+
+    public void setListEmprestimo(List<Emprestimo> listEmprestimo) {
+        this.listEmprestimo = listEmprestimo;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -132,5 +144,4 @@ public class Usuario {
     public String toString() {
         return "Usuario [id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + "]";
     }
-
 }

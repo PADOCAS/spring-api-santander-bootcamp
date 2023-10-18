@@ -1,12 +1,17 @@
 package com.ldsystems.santander.service.impl;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ldsystems.santander.model.vo.Emprestimo;
+import com.ldsystems.santander.model.vo.Parcela;
 import com.ldsystems.santander.model.vo.Usuario;
 import com.ldsystems.santander.repository.UsuarioRepository;
 import com.ldsystems.santander.service.UsuarioService;
@@ -52,6 +57,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new BusinessException("Este número de cartão já existe!\nVerifique!!");
         }
 
+        validateParcelas(usuario.getListEmprestimo());
+
         return usuarioRepository.save(usuario);
     }
 
@@ -71,6 +78,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioCharged.setCartao(usuario.getCartao());
         usuarioCharged.setListFuncionalidade(usuario.getListFuncionalidade());
         usuarioCharged.setListNoticia(usuario.getListNoticia());
+        // Valida Empréstimos:
+        validateParcelas(usuario.getListEmprestimo());
+        usuarioCharged.setListEmprestimo(usuario.getListEmprestimo());
 
         return usuarioRepository.save(usuarioCharged);
     }
@@ -89,4 +99,42 @@ public class UsuarioServiceImpl implements UsuarioService {
                     "Usuário com ID %d não pode ser %s.".formatted(UNCHANGEABLE_USER_ID, operation));
         }
     }
+
+    private void validateParcelas(List<Emprestimo> listEmprestimo) {
+        Locale localeBrasil = new Locale("pt", "BR");
+        NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(localeBrasil);
+
+        if (listEmprestimo != null
+                && !listEmprestimo.isEmpty()) {
+            listEmprestimo.stream()
+                    .forEach(emprestimo -> {
+                        if (emprestimo.getListParcela() == null
+                                || emprestimo.getListParcela().isEmpty()) {
+                            StringBuilder str = new StringBuilder();
+                            str.append("Informe as Parcelas para todos os empréstimos.");
+                            str.append("\nEmpréstimo de Valor: " + formatoMoeda.format(emprestimo.getValor())
+                                    + " sem Parcelas informadas.");
+                            str.append("\n\nVerifique!");
+                            throw new BusinessException(str.toString());
+                        } else if (emprestimo.getValor() != null
+                                && emprestimo.getValor().compareTo(
+                                        emprestimo.getListParcela().stream()
+                                                .map(Parcela::getValor)
+                                                .reduce(BigDecimal.ZERO, BigDecimal::add)) != 0) {
+                            StringBuilder strAux = new StringBuilder().append("");
+                            strAux.append(
+                                    "Somatório das Parcelas deve ser igual ao Valor Total do Contrato de Empréstimo.");
+                            strAux.append("\nEmpréstimo de Valor: " + formatoMoeda.format(emprestimo.getValor()));
+                            strAux.append("\nSoma Parcelas: " + formatoMoeda.format(emprestimo.getListParcela().stream()
+                                    .map(Parcela::getValor)
+                                    .reduce(BigDecimal.ZERO, BigDecimal::add)));
+                            strAux.append("\n\nVerifique!");
+
+                            throw new BusinessException(strAux.toString());
+                        }
+                    });
+        }
+        ;
+    }
+
 }
