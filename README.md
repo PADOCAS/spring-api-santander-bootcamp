@@ -60,7 +60,6 @@ classDiagram
   }
 
   class Parcela {
-      parcela: String
       dataVencimento: String
       valor: Float
       dataPagamento: String
