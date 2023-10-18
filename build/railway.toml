@@ -1,6 +1,6 @@
 [env]
   # Configurações de ambiente
-  JARFILE = "/build/spring-api-santander-bootcamp-0.0.1-SNAPSHOT-jar-with-dependencies.jar"  # Substitua pelo caminho real do seu JAR
+  JARFILE = "/build/spring-api-santander-bootcamp-0.0.1-SNAPSHOT.jar"  # Substitua pelo caminho real do seu JAR
 
 [web]
   # Configurações da web (se aplicável)
