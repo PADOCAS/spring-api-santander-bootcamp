@@ -55,6 +55,7 @@ classDiagram
   Usuario "1" --> "*" Funcionalidade
   Usuario "1" --> "1" Cartao
   Usuario "1" --> "*" Noticia
+
 ```
 
 <h3>Documentação da API (Swagger)</h3>
@@ -63,3 +64,4 @@ TODO::: Colocar link do sistema criado!
 <h2><a href="https://sdw-2023-prd.up.railway.app/swagger-ui.html">https://sdw-2023-prd.up.railway.app/swagger-ui.html</a></h2>
 
 Esta API ficará disponível no Railway por um período de tempo limitado.
+
