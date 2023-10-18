@@ -27,6 +27,7 @@ classDiagram
     listFuncionalidade: listFuncionalidade[]
     cartao: Cartao
     listNoticia: listNoticia[]
+    listEmprestimo: listEmprestimo[]
   }
 
   class Conta {
@@ -51,10 +52,27 @@ classDiagram
     descricao: String
   }
 
+  class Emprestimo {
+      nome: String
+      dataEmissao: String
+      valor: Float
+      listParcelas: listParcelas[]
+  }
+
+  class Parcela {
+      parcela: String
+      dataVencimento: String
+      valor: Float
+      dataPagamento: String
+      jurosMora: Float
+  }
+
   Usuario "1" --> "1" Conta
   Usuario "1" --> "*" Funcionalidade
   Usuario "1" --> "1" Cartao
   Usuario "1" --> "*" Noticia
+  Usuario "0..*" --> "0..*" Emprestimo 
+  Emprestimo "1" --> "1..*" Parcela 
 
 ```
 
