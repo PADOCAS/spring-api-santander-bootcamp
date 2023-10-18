@@ -1,5 +1,5 @@
 [build]
-  builder = "none"  # Configuração para não construir o aplicativo
+  builder = "custom"  # Configuração para não construir o aplicativo
 
 [env]
   # Configurações de ambiente
