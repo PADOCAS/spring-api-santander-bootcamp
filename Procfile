@@ -1,1 +1,1 @@
-web: java -jar
+web: java -jar build/spring-api-santander-bootcamp-0.0.1-SNAPSHOT.jar
