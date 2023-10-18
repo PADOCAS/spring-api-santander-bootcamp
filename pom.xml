@@ -57,7 +57,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.3.0</version> 
 				<configuration>
-					<outputDirectory>${project.build.directory}/build</outputDirectory>
+					<outputDirectory>${project.basedir}/build</outputDirectory>
 					<archive>
 						<manifest>
 							<mainClass>com.ldsystems.santander.Application</mainClass>
