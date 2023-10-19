@@ -16,8 +16,6 @@ RESTful API para o BootCamp Santander da DIO, utilizando como base para o projet
 
 * Railway
 
-* Payara/Glassfish
-
 <h2><a href="https://www.figma.com/file/0ZsjwjsYlYd3timxqMWlbj/SANTANDER---Projeto-Web%2FMobile?type=design&node-id=1421-432&mode=design">Figma</a></h2>
 
 O Figma foi utilizado para a abstração do domínio desta API, sendo útil na análise e projeto da solução.
