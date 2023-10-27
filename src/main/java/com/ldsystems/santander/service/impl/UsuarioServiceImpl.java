@@ -48,8 +48,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional.ofNullable(usuario.getCartao())
                 .orElseThrow(() -> new BusinessException("Cartão do Usuário deve ser preenchido."));
 
-        this.validateChangeableId(usuario.getId(), "Criado");
-
         if (usuarioRepository.existsByContaNumero(usuario.getConta().getNumero())) {
             throw new BusinessException("Este número de conta já existe!\nVerifique!!");
         }
@@ -65,38 +63,39 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     @Override
     public Usuario update(Long id, Usuario usuario) {
-        this.validateChangeableId(id, "alteração");
-
         Usuario usuarioCharged = this.findById(id);
 
-        if (!usuarioCharged.getId().equals(usuario.getId())) {
-            throw new BusinessException("Os ID's de atualização devem ser iguais.");
+        if (usuarioCharged != null
+                && usuarioCharged.getId() != null) {
+            if (!usuarioCharged.getId().equals(usuario.getId())) {
+                throw new BusinessException("Os ID's de atualização devem ser iguais.");
+            }
+
+            usuarioCharged.setNome(usuario.getNome());
+            usuarioCharged.setConta(usuario.getConta());
+            usuarioCharged.setCartao(usuario.getCartao());
+            usuarioCharged.setListFuncionalidade(usuario.getListFuncionalidade());
+            usuarioCharged.setListNoticia(usuario.getListNoticia());
+            // Valida Empréstimos:
+            validateParcelas(usuario.getListEmprestimo());
+            usuarioCharged.setListEmprestimo(usuario.getListEmprestimo());
+
+            return usuarioRepository.save(usuarioCharged);
+        } else {
+            throw new BusinessException("Usuário com ID %d não existe. Verifique!".formatted(id));
         }
-
-        usuarioCharged.setNome(usuario.getNome());
-        usuarioCharged.setConta(usuario.getConta());
-        usuarioCharged.setCartao(usuario.getCartao());
-        usuarioCharged.setListFuncionalidade(usuario.getListFuncionalidade());
-        usuarioCharged.setListNoticia(usuario.getListNoticia());
-        // Valida Empréstimos:
-        validateParcelas(usuario.getListEmprestimo());
-        usuarioCharged.setListEmprestimo(usuario.getListEmprestimo());
-
-        return usuarioRepository.save(usuarioCharged);
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
-        this.validateChangeableId(id, "Exclusão");
         Usuario usuarioCharged = this.findById(id);
-        usuarioRepository.delete(usuarioCharged);
-    }
 
-    private void validateChangeableId(Long id, String operation) {
-        if (UNCHANGEABLE_USER_ID.equals(id)) {
-            throw new BusinessException(
-                    "Usuário com ID %d não pode ser %s.".formatted(UNCHANGEABLE_USER_ID, operation));
+        if (usuarioCharged != null
+                && usuarioCharged.getId() != null) {
+            usuarioRepository.delete(usuarioCharged);
+        } else {
+            throw new BusinessException("Usuário com ID %d não existe. Verifique!".formatted(id));
         }
     }
 
@@ -118,9 +117,9 @@ public class UsuarioServiceImpl implements UsuarioService {
                             throw new BusinessException(str.toString());
                         } else if (emprestimo.getValor() != null
                                 && emprestimo.getValor().compareTo(
-                                        emprestimo.getListParcela().stream()
-                                                .map(Parcela::getValor)
-                                                .reduce(BigDecimal.ZERO, BigDecimal::add)) != 0) {
+                                emprestimo.getListParcela().stream()
+                                        .map(Parcela::getValor)
+                                        .reduce(BigDecimal.ZERO, BigDecimal::add)) != 0) {
                             StringBuilder strAux = new StringBuilder().append("");
                             strAux.append(
                                     "Somatório das Parcelas deve ser igual ao Valor Total do Contrato de Empréstimo.");
