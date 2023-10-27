@@ -16,7 +16,7 @@ RESTful API para o BootCamp Santander da DIO, utilizando como base para o projet
 
 * Railway
 
-* Payara 5
+* Payara 6 (Micro)
 
 <h2><a href="https://www.figma.com/file/0ZsjwjsYlYd3timxqMWlbj/SANTANDER---Projeto-Web%2FMobile?type=design&node-id=1421-432&mode=design">Figma</a></h2>
 
