@@ -12,8 +12,8 @@
     <groupId>com.ldsystems.santander</groupId>
     <artifactId>spring-api-santander-bootcamp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <!--    Deploy War: -->
-    <packaging>war</packaging>
+    <!--    Deploy War para o payara apenas: -->
+<!--    <packaging>war</packaging>-->
     <name>spring-api-santander-bootcamp</name>
     <description>Java RESTful API criada para o BootCamp Santander Full Stack Java (2023)</description>
     <properties>
