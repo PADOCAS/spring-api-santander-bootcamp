@@ -16,6 +16,8 @@ RESTful API para o BootCamp Santander da DIO, utilizando como base para o projet
 
 * Railway
 
+* Payara 5
+
 <h2><a href="https://www.figma.com/file/0ZsjwjsYlYd3timxqMWlbj/SANTANDER---Projeto-Web%2FMobile?type=design&node-id=1421-432&mode=design">Figma</a></h2>
 
 O Figma foi utilizado para a abstração do domínio desta API, sendo útil na análise e projeto da solução.
@@ -83,7 +85,8 @@ classDiagram
 
 ```
 
-<h3>Documentação da API (Swagger)</h3>
+<h3>Documentação da API - Swagger para testes:</h3>
 
-<h2><a href="https://spring-api-santander-bootcamp-production.up.railway.app/swagger-ui/index.html">Swagger API Railway</a></h2> -> Esta API(Railway) ficará disponível por um período de tempo limitado.
+<h4><a href="https://spring-api-santander-bootcamp-production.up.railway.app/swagger-ui/index.html">Swagger API Railway</a></h4>-> Esta API(Railway) ficará disponível por um período de tempo limitado.
 
+<h4><a href="http://ldsystems.com.br:40080/spring-api-santander-bootcamp/swagger-ui/index.html">Swagger API Payara</a></h4>
