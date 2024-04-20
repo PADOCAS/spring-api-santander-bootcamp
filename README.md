@@ -89,4 +89,4 @@ classDiagram
 
 <h4><a href="https://spring-api-santander-bootcamp-production.up.railway.app/swagger-ui/index.html">Swagger API Railway</a></h4>-> Esta API(Railway) ficará disponível por um período de tempo limitado.
 
-<h4><a href="http://ldsystems.com.br:40080/spring-api-santander-bootcamp/swagger-ui/index.html">Swagger API Payara</a></h4>
+<h4><a href="https://ldsystems.com.br:40080/spring-api-santander-bootcamp/swagger-ui/index.html">Swagger API Payara</a></h4>
